@@ -13,7 +13,7 @@ RSpec.describe 'Users API', type: :request do
     }
   end
 
-  before { host! 'api.taskmanager.dev' }
+  before { host! 'api.task-manager.test' }
 
 
   describe 'GET /auth/validate_token' do
@@ -36,7 +36,7 @@ RSpec.describe 'Users API', type: :request do
       before do
         headers['access-token'] = "invalid_token"
         get '/auth/validate_token', params: {}, headers: headers
-      end       
+      end
 
       it 'returns status code 401' do
         expect(response).to have_http_status(401)
@@ -54,8 +54,8 @@ RSpec.describe 'Users API', type: :request do
     context 'when the request params are valid' do
       let(:user_params) { attributes_for(:user) }
 
-      it 'returns status code 200' do    
-        expect(response).to have_http_status(200)    
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
 
       it 'returns json data for the created user' do
@@ -76,7 +76,7 @@ RSpec.describe 'Users API', type: :request do
     end
   end
 
-  
+
   describe 'PUT /auth' do
     before do
       put '/auth', params: user_params.to_json, headers: headers
@@ -99,7 +99,7 @@ RSpec.describe 'Users API', type: :request do
 
       it 'retuns status code 422' do
         expect(response).to have_http_status(422)
-      end      
+      end
 
       it 'returns the json data for the erros' do
         expect(json_body).to have_key(:errors)
@@ -121,5 +121,5 @@ RSpec.describe 'Users API', type: :request do
       expect( User.find_by(id: user.id) ).to be_nil
     end
   end
-  
+
 end

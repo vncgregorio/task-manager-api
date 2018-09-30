@@ -11,7 +11,7 @@ RSpec.describe 'Users API', type: :request do
     }
   end
 
-  before { host! 'api.taskmanager.dev' }
+  before { host! 'api.task-manager.test' }
 
 
   describe 'GET /users/:id' do
@@ -30,7 +30,7 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when the user does not exist' do
-      let(:user_id) { 10000 }        
+      let(:user_id) { 10000 }
 
       it 'returns status coide 404' do
         expect(response).to have_http_status(404)
@@ -48,8 +48,8 @@ RSpec.describe 'Users API', type: :request do
     context 'when the request params are valid' do
       let(:user_params) { attributes_for(:user) }
 
-      it 'returns status code 201' do    
-        expect(response).to have_http_status(201)    
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
       end
 
       it 'returns json data for the created user' do
@@ -70,7 +70,7 @@ RSpec.describe 'Users API', type: :request do
     end
   end
 
-  
+
   describe 'PUT /users/:id' do
     before do
       put "/users/#{user_id}", params: { user: user_params }.to_json, headers: headers
@@ -93,7 +93,7 @@ RSpec.describe 'Users API', type: :request do
 
       it 'retuns status code 422' do
         expect(response).to have_http_status(422)
-      end      
+      end
 
       it 'returns the json data for the erros' do
         expect(json_body).to have_key(:errors)
@@ -115,5 +115,5 @@ RSpec.describe 'Users API', type: :request do
       expect( User.find_by(id: user.id) ).to be_nil
     end
   end
-  
+
 end

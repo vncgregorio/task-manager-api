@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Task API' do
-  before { host! 'api.taskmanager.dev' }
+  before { host! 'api.task-manager.test' }
 
   let!(:user) { create(:user) }
   let(:headers) do
@@ -66,7 +66,7 @@ RSpec.describe 'Task API' do
 
       it 'assigns the created task to the current user' do
         expect(json_body[:user_id]).to eq(user.id)
-      end      
+      end
     end
 
     context 'when the params are invalid' do
@@ -86,7 +86,7 @@ RSpec.describe 'Task API' do
     end
   end
 
-  
+
   describe 'PUT /tasks/:id' do
     let!(:task) { create(:task, user_id: user.id) }
 
